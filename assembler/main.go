@@ -1,10 +1,12 @@
 package main
 
 import (
+	"bytes"
 	"flag"
 	"fmt"
 
 	"github.com/rtfb/sketchbook/logisim/isa2/disasm"
+	"github.com/rtfb/sketchbook/logisim/isa2/rom"
 )
 
 var disasmFlag bool
@@ -23,7 +25,12 @@ func main() {
 		fmt.Printf("Assembling is not implemented yet.\n")
 		return
 	}
-	inputBytes := []byte{0x0f, 0x18, 0x0e, 0, 0xa0, 0xc0, 0x9b}
-	assembly := disasm.Do(inputBytes)
+	romFilename := flag.Args()[0]
+	rom, err := rom.Load(romFilename)
+	if err != nil {
+		panic(err)
+	}
+	noTrailingZeros := bytes.TrimRight(rom.Bytes, string([]byte{0}))
+	assembly := disasm.Do(noTrailingZeros)
 	fmt.Print(assembly)
 }

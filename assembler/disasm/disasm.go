@@ -167,7 +167,7 @@ func Do(input []byte) string {
 	for i, instruction := range input {
 		opcode := lookup((instruction & 0xf8) >> 3)
 		argument := instruction & 7
-		result.WriteString(fmt.Sprintf("%d: %s%s", i, opcode.mnemonic, fmtArg(opcode, argument)))
+		result.WriteString(fmt.Sprintf("%3d: %s%s", i, opcode.mnemonic, fmtArg(opcode, argument)))
 		if opcode.mnemonic == "UNK" {
 			result.WriteString(fmt.Sprintf("  // 0b%b", instruction))
 		}
