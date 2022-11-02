@@ -304,7 +304,10 @@
     <comp lib="4" loc="(500,110)" name="ROM">
       <a name="appearance" val="logisim_evolution"/>
       <a name="contents">addr/data: 8 8
-f 4a 52 7a 4a a b8
+9 4f 4e 8 1e 88 1f 88
+4d 24 c 7c 4c 57 4a 56
+7f 2b 4f 52 4e 55 1f 88
+4d 54 33 b8
 </a>
       <a name="label" val="ProgramROM"/>
     </comp>
