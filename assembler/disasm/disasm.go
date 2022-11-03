@@ -3,6 +3,7 @@ package disasm
 import (
 	"fmt"
 	"strings"
+	"text/tabwriter"
 )
 
 type paramType int
@@ -95,6 +96,7 @@ var isa []opcode = []opcode{
 	opcode{
 		code:     0x11,
 		mnemonic: "inc",
+		param:    paramIgnored,
 	},
 	opcode{
 		code:     0x12,
@@ -164,14 +166,16 @@ func fmtArg(opcode opcode, param byte) string {
 // Do does the disassembling.
 func Do(input []byte) string {
 	var result strings.Builder
+	w := tabwriter.NewWriter(&result, 3, 10, 1, '\t', 0)
 	for i, instruction := range input {
 		opcode := lookup((instruction & 0xf8) >> 3)
 		argument := instruction & 7
-		result.WriteString(fmt.Sprintf("%3d: %s%s", i, opcode.mnemonic, fmtArg(opcode, argument)))
+		fmt.Fprintf(w, "%3d:\t%02x\t%s\t%s", i, instruction, opcode.mnemonic, fmtArg(opcode, argument))
 		if opcode.mnemonic == "UNK" {
-			result.WriteString(fmt.Sprintf("  // 0b%b", instruction))
+			fmt.Fprintf(w, "  // 0b%b", instruction)
 		}
-		result.WriteString("\n")
+		fmt.Fprintf(w, "\n")
 	}
+	w.Flush()
 	return result.String()
 }
