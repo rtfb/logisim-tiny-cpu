@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"path"
 
+	"github.com/rtfb/sketchbook/logisim/isa2/asm"
 	"github.com/rtfb/sketchbook/logisim/isa2/disasm"
 	"github.com/rtfb/sketchbook/logisim/isa2/parser"
 	"github.com/rtfb/sketchbook/logisim/isa2/rom"
@@ -25,7 +26,13 @@ func assemble(asmFilename string) {
 		fmt.Printf("can't read %s: %v\n", asmFilename, err)
 		return
 	}
-	parser.Tokenize(bytes.NewReader(input), baseName)
+	tokens := parser.Tokenize(bytes.NewReader(input), baseName)
+	output, err := asm.Assemble(tokens)
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+	fmt.Print(rom.Dump(output))
 	return
 }
 

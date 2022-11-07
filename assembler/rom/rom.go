@@ -30,6 +30,27 @@ func Load(filename string) (ROM, error) {
 	}, nil
 }
 
+func Dump(b []byte) string {
+	var buf strings.Builder
+	buf.WriteString("v3.0 hex words addressed\n")
+	i := 0
+	for i < 256 {
+		if i%16 == 0 {
+			if i > 0 {
+				buf.WriteByte('\n')
+			}
+			buf.WriteString(fmt.Sprintf("%02x:", i))
+		}
+		var out byte
+		if i < len(b) {
+			out = b[i]
+		}
+		buf.WriteString(fmt.Sprintf(" %02x", out))
+		i++
+	}
+	return buf.String() + "\n"
+}
+
 func parse(input string) ([]byte, error) {
 	var result bytes.Buffer
 	lines := strings.Split(input, "\n")

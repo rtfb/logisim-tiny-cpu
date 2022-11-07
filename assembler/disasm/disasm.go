@@ -18,8 +18,7 @@ func fmtArg(opcode isa.Opcode, param byte) string {
 		if param > 7 {
 			return fmt.Sprintf(" 0x%d", param)
 		}
-		regs := []string{"r0", "r1", "r2", "r3", "r4", "r5", "r6", "r7"}
-		return " " + regs[param]
+		return " " + isa.Regs[param].Name
 	default:
 		return fmt.Sprintf(" 0x%d", param)
 	}
