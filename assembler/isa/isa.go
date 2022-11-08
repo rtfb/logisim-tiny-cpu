@@ -185,7 +185,7 @@ func (o Opcode) Emit(param byte) byte {
 }
 
 func ByName(mnemonic string) (Opcode, bool) {
-	opcode, ok := byName[mnemonic]
+	opcode, ok := byName[strings.ToLower(mnemonic)]
 	return opcode, ok
 }
 
