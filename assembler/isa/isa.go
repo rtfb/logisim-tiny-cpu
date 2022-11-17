@@ -132,11 +132,11 @@ var ISA []Opcode = []Opcode{
 	Opcode{
 		Code:     0x11,
 		Mnemonic: "inc",
-		Param:    ParamIgnored,
+		Param:    ParamIsImmediate,
 	},
 	Opcode{
 		Code:     0x12,
-		Mnemonic: "UNK",
+		Mnemonic: "dec",
 		Param:    ParamIsImmediate,
 	},
 	Opcode{
