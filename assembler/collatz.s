@@ -60,12 +60,12 @@ jz        // jump if r7 was even
   setacc r7
   shli 1
   add r7
-  inc
+  inc 1
   getacc r7
   setacc r6
   st r7
 
-  inc    // index++
+  inc 1  // index++
   getacc r6
 
   setacc r0
@@ -77,7 +77,7 @@ jz        // jump if r7 was even
   getacc r7
   setacc r6
   st r7
-  inc    // index++
+  inc 1  // index++
   getacc r6
 
   li 1

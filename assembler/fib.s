@@ -9,9 +9,9 @@ GETACC r6     // fib(2)=1
 
 LI 0
 ST r6         // store [r6] to [0]
-INC
+INC 1
 ST r7         // store [r7] to [1]
-INC
+INC 1
 GETACC r5     // index to write result to (r5 = 2)
 
 LI 7
@@ -44,7 +44,7 @@ GETACC r1     // r1 now contains address of the end of the loop
 
     SETACC r5 // acc = index
     ST r7     // store the latest Fib number in mem
-    INC
+    INC 1
     GETACC r5
 
     SETACC r4
