@@ -169,6 +169,21 @@ var ISA []Opcode = []Opcode{
 		Mnemonic: "jmp",
 		Param:    ParamIgnored,
 	},
+	Opcode{
+		Code:     0x19,
+		Mnemonic: "UNK",
+		Param:    ParamIsImmediate,
+	},
+	Opcode{
+		Code:     0x1a,
+		Mnemonic: "li0",
+		Param:    ParamIsImmediate,
+	},
+	Opcode{
+		Code:     0x1b,
+		Mnemonic: "li1",
+		Param:    ParamIsImmediate,
+	},
 }
 
 var byName map[string]Opcode

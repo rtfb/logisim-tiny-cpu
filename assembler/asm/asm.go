@@ -54,11 +54,27 @@ func Assemble(input []parser.Token) ([]byte, error) {
 			}
 			immediate = byte(imm)
 		}
-		if immediate > 7 {
+		var limit byte
+		opcode, limit = xformLoadImmediate(opcode, immediate)
+		if immediate > limit {
 			return nil, fmt.Errorf("%s: immediate argument '%s' for opcode %s is too large, must be <=7", t.Position, t.Text, opcode.Mnemonic)
 		}
 		out = append(out, opcode.Emit(immediate))
 		opcode = nil
 	}
 	return out, nil
+}
+
+func xformLoadImmediate(inop *isa.Opcode, imm byte) (*isa.Opcode, byte) {
+	if inop.Mnemonic == "li" {
+		if imm <= 7 {
+			return inop, 7
+		}
+		newOp, _ := isa.ByName("li1")
+		return &newOp, 15
+	}
+	if inop.Mnemonic == "li0" || inop.Mnemonic == "li1" {
+		return inop, 15
+	}
+	return inop, 7
 }
