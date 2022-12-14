@@ -11,8 +11,15 @@ import (
 
 func Assemble(input []parser.Token) ([]byte, error) {
 	var opcode *isa.Opcode
-	var out []byte
+	// var out []byte
+	out := make([]isa.Opcode, 0, 255)
+	knownLabels := make(map[string]*isa.Opcode)
+	opIndex := 0
 	for _, t := range input {
+		if strings.HasSuffix(t.Text, ":") {
+			knownLabels[strings.StripRight(t.Text, ":")] = &out[opIndex]
+			continue
+		}
 		if opcode == nil {
 			op, ok := isa.ByName(t.Text)
 			if !ok {

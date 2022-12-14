@@ -5,15 +5,17 @@ import "strings"
 type ParamType int
 
 const (
-	ParamIsRegister  ParamType = 0
-	ParamIsImmediate ParamType = 1
-	ParamIgnored     ParamType = 2
+	ParamIsRegister ParamType = iota
+	ParamIsImmediate
+	ParamIgnored
+	ParamIsLabel
 )
 
 type Opcode struct {
-	Code     byte   // binary value of the opcode extracted from the instruction
-	Mnemonic string // the string representation of the instruction
-	Param    ParamType
+	Code                byte   // binary value of the opcode extracted from the instruction
+	Mnemonic            string // the string representation of the instruction
+	Param               ParamType
+	IsPseudoInstruction bool // this instruction is a pseudo, expanding to something else
 }
 
 type Reg struct {
@@ -145,29 +147,34 @@ var ISA []Opcode = []Opcode{
 		Param:    ParamIsImmediate,
 	},
 	Opcode{
-		Code:     0x14,
-		Mnemonic: "jz",
-		Param:    ParamIgnored,
+		Code:                0x14,
+		Mnemonic:            "jz",
+		Param:               ParamIsLabel,
+		IsPseudoInstruction: true,
 	},
 	Opcode{
-		Code:     0x15,
-		Mnemonic: "jnz",
-		Param:    ParamIgnored,
+		Code:                0x15,
+		Mnemonic:            "jnz",
+		Param:               ParamIsLabel,
+		IsPseudoInstruction: true,
 	},
 	Opcode{
-		Code:     0x16,
-		Mnemonic: "jo",
-		Param:    ParamIgnored,
+		Code:                0x16,
+		Mnemonic:            "jo",
+		Param:               ParamIsLabel,
+		IsPseudoInstruction: true,
 	},
 	Opcode{
-		Code:     0x17,
-		Mnemonic: "jno",
-		Param:    ParamIgnored,
+		Code:                0x17,
+		Mnemonic:            "jno",
+		Param:               ParamIsLabel,
+		IsPseudoInstruction: true,
 	},
 	Opcode{
-		Code:     0x18,
-		Mnemonic: "jmp",
-		Param:    ParamIgnored,
+		Code:                0x18,
+		Mnemonic:            "jmp",
+		Param:               ParamIsLabel,
+		IsPseudoInstruction: true,
 	},
 	Opcode{
 		Code:     0x19,
