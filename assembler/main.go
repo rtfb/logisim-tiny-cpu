@@ -27,10 +27,6 @@ func assemble(asmFilename string) {
 		return
 	}
 	tokens := parser.Tokenize(bytes.NewReader(input), baseName)
-	for _, t := range tokens {
-		fmt.Println(t)
-	}
-	return
 	output, err := asm.Assemble(tokens)
 	if err != nil {
 		fmt.Println(err.Error())

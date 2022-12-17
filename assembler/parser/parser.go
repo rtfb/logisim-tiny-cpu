@@ -15,17 +15,16 @@ func Tokenize(input io.Reader, baseName string) []Token {
 	s.Init(input)
 	s.Filename = baseName
 	var toks []Token
-	var lastToken Token
 	for tok := s.Scan(); tok != scanner.EOF; tok = s.Scan() {
-		if s.TokenText() == ":" {
-			lastToken.Text += ":"
+		text := s.TokenText()
+		if s.Peek() == ':' {
+			text += ":"
 			s.Scan()
 		}
-		toks = append(toks, lastToken)
-		lastToken = Token{
+		toks = append(toks, Token{
 			Position: s.Position,
-			Text:     s.TokenText(),
-		}
+			Text:     text,
+		})
 	}
 	return toks
 }

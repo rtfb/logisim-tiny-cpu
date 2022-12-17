@@ -16,6 +16,11 @@ type Opcode struct {
 	Mnemonic            string // the string representation of the instruction
 	Param               ParamType
 	IsPseudoInstruction bool // this instruction is a pseudo, expanding to something else
+
+	// number of instructions this expands to. Equals one for normal
+	// instructions, and may be >=1 for pseudoinstructions. Will default to 1
+	// if it's zero.
+	ExpansionWidth byte
 }
 
 type Reg struct {
@@ -151,30 +156,35 @@ var ISA []Opcode = []Opcode{
 		Mnemonic:            "jz",
 		Param:               ParamIsLabel,
 		IsPseudoInstruction: true,
+		ExpansionWidth:      3,
 	},
 	Opcode{
 		Code:                0x15,
 		Mnemonic:            "jnz",
 		Param:               ParamIsLabel,
 		IsPseudoInstruction: true,
+		ExpansionWidth:      3,
 	},
 	Opcode{
 		Code:                0x16,
 		Mnemonic:            "jo",
 		Param:               ParamIsLabel,
 		IsPseudoInstruction: true,
+		ExpansionWidth:      3,
 	},
 	Opcode{
 		Code:                0x17,
 		Mnemonic:            "jno",
 		Param:               ParamIsLabel,
 		IsPseudoInstruction: true,
+		ExpansionWidth:      3,
 	},
 	Opcode{
 		Code:                0x18,
 		Mnemonic:            "jmp",
 		Param:               ParamIsLabel,
 		IsPseudoInstruction: true,
+		ExpansionWidth:      3,
 	},
 	Opcode{
 		Code:     0x19,
@@ -191,6 +201,26 @@ var ISA []Opcode = []Opcode{
 		Mnemonic: "li1",
 		Param:    ParamIsImmediate,
 	},
+	Opcode{
+		Code:     0x1c,
+		Mnemonic: "sjf",
+		Param:    ParamIsImmediate,
+	},
+	Opcode{
+		Code:     0x1d,
+		Mnemonic: "sjfn",
+		Param:    ParamIsImmediate,
+	},
+	Opcode{
+		Code:     0x1e,
+		Mnemonic: "jmplo",
+		Param:    ParamIsImmediate,
+	},
+	Opcode{
+		Code:     0x1f,
+		Mnemonic: "jmphi",
+		Param:    ParamIsImmediate,
+	},
 }
 
 var byName map[string]Opcode
@@ -200,6 +230,10 @@ func init() {
 	for i, oc := range ISA {
 		byName[oc.Mnemonic] = ISA[i]
 	}
+}
+
+func (o Opcode) Empty() bool {
+	return o.Mnemonic == ""
 }
 
 func (o Opcode) Emit(param byte) byte {
