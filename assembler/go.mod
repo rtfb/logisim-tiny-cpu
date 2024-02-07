@@ -1,4 +1,4 @@
-module github.com/rtfb/sketchbook/logisim/isa2
+module github.com/rtfb/logisim-tiny-cpu
 
 go 1.19
 

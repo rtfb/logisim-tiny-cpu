@@ -5,7 +5,7 @@ import (
 	"strings"
 	"text/tabwriter"
 
-	"github.com/rtfb/sketchbook/logisim/isa2/isa"
+	"github.com/rtfb/logisim-tiny-cpu/isa"
 )
 
 func fmtArg(opcode isa.Opcode, param byte) string {

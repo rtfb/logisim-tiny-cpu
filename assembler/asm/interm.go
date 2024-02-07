@@ -1,8 +1,8 @@
 package asm
 
 import (
-	"github.com/rtfb/sketchbook/logisim/isa2/isa"
-	"github.com/rtfb/sketchbook/logisim/isa2/parser"
+	"github.com/rtfb/logisim-tiny-cpu/isa"
+	"github.com/rtfb/logisim-tiny-cpu/parser"
 )
 
 type intermOp struct {

@@ -5,8 +5,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/rtfb/sketchbook/logisim/isa2/isa"
-	"github.com/rtfb/sketchbook/logisim/isa2/parser"
+	"github.com/rtfb/logisim-tiny-cpu/isa"
+	"github.com/rtfb/logisim-tiny-cpu/parser"
 )
 
 func Assemble(input []parser.Token) ([]byte, error) {

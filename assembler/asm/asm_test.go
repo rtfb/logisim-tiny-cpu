@@ -6,8 +6,8 @@ import (
 	"testing"
 	"text/scanner"
 
-	"github.com/rtfb/sketchbook/logisim/isa2/isa"
-	"github.com/rtfb/sketchbook/logisim/isa2/parser"
+	"github.com/rtfb/logisim-tiny-cpu/isa"
+	"github.com/rtfb/logisim-tiny-cpu/parser"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

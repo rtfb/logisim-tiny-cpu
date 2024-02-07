@@ -7,10 +7,10 @@ import (
 	"io/ioutil"
 	"path"
 
-	"github.com/rtfb/sketchbook/logisim/isa2/asm"
-	"github.com/rtfb/sketchbook/logisim/isa2/disasm"
-	"github.com/rtfb/sketchbook/logisim/isa2/parser"
-	"github.com/rtfb/sketchbook/logisim/isa2/rom"
+	"github.com/rtfb/logisim-tiny-cpu/asm"
+	"github.com/rtfb/logisim-tiny-cpu/disasm"
+	"github.com/rtfb/logisim-tiny-cpu/parser"
+	"github.com/rtfb/logisim-tiny-cpu/rom"
 )
 
 var disasmFlag bool
