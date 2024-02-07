@@ -17,12 +17,14 @@ it on a physical silicon one day).
 
 # Contents
 
+![Cover pic](images/cpu-cover.png)
+
 ## The CPU
 
 [`8b_cpu_isa2.circ`][3] contains the entire CPU in one drawing. It's not large,
 almost workable in a fit-to-screen zoom level if the screen is big enough. You
 will need [Logisim Evolution][1] for working with it (or navigating
-comfortably).
+comfortably). [Here](images/cpu-full.png) is a screenshot of the entire design.
 
 ## ISA spec
 
